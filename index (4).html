@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Paragi, From Bhavya 💜</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #2e1065, #3b0764);
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --border-glow: rgba(168, 85, 247, 0.4);
+            --text-color: #f3e8ff;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .apology-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-purple);
+            text-align: left;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            min-height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #0284c7, #9333ea);
+            color: white;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+        }
+
+        .btn-no {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Success Message Overlay */
+        .success-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .success-screen h2 {
+            font-size: 2rem;
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-card">
+        <h1>Hey Paragi... 💙</h1>
+        <p class="subtitle">A special message from Bhavya</p>
+
+        <div class="apology-box">
+            <p>I know I messed up, and I really hate that I hurt or annoyed you. Best friends like you don't come around often, and life is way too boring without us being cool.</p>
+            <br>
+            <p>I’m genuinely sorry! Can we reset and get back to being best friends? 🥺✨</p>
+        </div>
+
+        <div class="buttons" id="button-group">
+            <button class="btn-yes" onclick="acceptApology()">I Forgive You! 💜</button>
+            <button class="btn-no" id="no-btn" onmouseover="moveButton()">Still Mad 😤</button>
+        </div>
+    </div>
+
+    <div class="container success-screen" id="success-card">
+        <h2>BEST FRIENDS AGAIN! 🎉</h2>
+        <p>Thank you, Paragi! You're the absolute best! 🚀✨</p>
+        <p>Bhavya owes you a treat! 🍕🧋</p>
+    </div>
+
+    <script>
+        // Move the "Still Mad" button away on hover
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const container = document.getElementById('main-card');
+            
+            const containerRect = container.getBoundingClientRect();
+            
+            // Generate random positions within the container
+            const maxX = containerRect.width - btn.offsetWidth - 40;
+            const maxY = containerRect.height - btn.offsetHeight - 40;
+
+            const newX = Math.floor(Math.random() * maxX) - (containerRect.width / 2 - 50);
+            const newY = Math.floor(Math.random() * maxY) - (containerRect.height / 2 - 50);
+
+            btn.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+
+        // Show success message and celebrate
+        function acceptApology() {
+            document.getElementById('main-card').style.display = 'none';
+            document.getElementById('success-card').style.display = 'flex';
+            
+            // Trigger floating hearts/stars celebration
+            for (let i = 0; i < 30; i++) {
+                createParticle(true);
+            }
+        }
+
+        // Create background floating elements
+        function createParticle(isCelebration = false) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const symbols = ['✨', '💜', '💙', '⭐', '🌸'];
+            particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+
+            if (isCelebration) {
+                particle.style.top = '50vh';
+                particle.style.animation = 'float 3s ease-out forwards';
+            }
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 6000);
+        }
+
+        // Continuously generate background particles
+        setInterval(() => createParticle(), 500);
+    </script>
+</body>
+</html>
